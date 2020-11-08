@@ -7,7 +7,7 @@ import re
 This file defines the front-end part of the service.
 It elaborates how the services should handle different
 http requests from the client (browser) through templating.
-The html templates are stored in the 'templates' folder. 
+The html templates are stored in the 'templates' folder.
 """
 
 
@@ -100,9 +100,9 @@ def login_post():
     if user:
         session['logged_in'] = user.email
         """
-        Session is an object that contains sharing information 
-        between browser and the end server. Typically it is encrypted 
-        and stored in the browser cookies. They will be past 
+        Session is an object that contains sharing information
+        between browser and the end server. Typically it is encrypted
+        and stored in the browser cookies. They will be past
         along between every request the browser made to this services.
 
         Here we store the user object into the session, so we can tell
@@ -127,7 +127,7 @@ def authenticate(inner_function):
     """
     :param inner_function: any python function that accepts a user object
 
-    Wrap any python function and check the current session to see if 
+    Wrap any python function and check the current session to see if
     the user has logged in. If login, it will call the inner_function
     with the logged in user object.
 
@@ -167,3 +167,11 @@ def profile(user):
     # front-end portals
     tickets = bn.get_all_tickets()
     return render_template('index.html', user=user, tickets=tickets)
+
+
+# custom page for 404 error
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+'''
